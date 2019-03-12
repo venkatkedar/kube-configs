@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    app: cs-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+       app: cs-server
+  template:
+    metadata:
+      labels: 
+        app: cs-server
+    spec:
+      containers:
+      - name: config-server
+        image: venkatkedar/docker-repo/config-server2
+        ports:
+        -  containerPort: 9090        
