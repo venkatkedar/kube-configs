@@ -11,5 +11,3 @@ metadata:
       image: venkatkedar/docker-repo:config-server2
       ports:
       - containerPort: 9090
-	
-    
