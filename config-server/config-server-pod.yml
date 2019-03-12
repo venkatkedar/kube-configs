@@ -1,0 +1,15 @@
+---
+apiVersion : v1
+kind : Pod
+metadata:
+  name:config-server
+  labels:
+    app: c-server
+  spec:
+    containers :
+    - name : config-server
+      image: venkatkedar/docker-repo:config-server2
+      ports:
+        containerPort:9090
+	
+    
