@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srs
+  labels:
+    app: srs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+       app: srs
+  template:
+    metadata:
+      labels: 
+        app: srs
+    spec:
+      containers:
+      - name: srs
+        image: venkatkedar/sample-rest-service:latest
+        ports:
+        -  containerPort: 9090
+      imagePullSecrets:
+      - name: regcred        

@@ -1,0 +1,15 @@
+---
+apiVersion : v1
+kind : Pod
+metadata:
+  name: srs
+  labels:
+    app: srs
+spec:
+ containers :
+ - name: srs
+   image: venkatkedar/sample-rest-service:latest
+   ports:
+   - containerPort: 9090
+ imagePullSecrets:
+ - name: regcred
