@@ -9,6 +9,5 @@ spec:
   ports:
   -  name: http
      protocol: TCP
-     port: 9007
+     port: 9020
      targetPort: 9090
-  type: LoadBalancer

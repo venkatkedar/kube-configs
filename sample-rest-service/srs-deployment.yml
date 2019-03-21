@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
       - name: srs
-        image: venkatkedar/sample-rest-service:latest
+        image: venkatkedar/sample-rest-service:v1
         env:
-        - name: spring.cloud.config.uri
-        - value: http://config-server:9090
+        - name: CONFIG_URI
+          value: "http://config-server"
         ports:
         -  containerPort: 9090
       imagePullSecrets:
