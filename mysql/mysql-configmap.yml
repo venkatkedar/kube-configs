@@ -8,8 +8,13 @@ data:
   master.cnf: |
     # Apply this config only on the master.
     [mysqld]
-    log-bin
+    server-id=1
+    log-bin=black-bin.log
+    innodb_flush_log_at_trx_commit=1
+    sync_binlog=1
   slave.cnf: |
     # Apply this config only on slaves.
     [mysqld]
-    super-read-only
+    server-id=2
+    relay-log-index=slave-relay-bin.index
+    relay-log=slave-relay-bin

@@ -63,7 +63,7 @@ spec:
           mountPath: /etc/mysql/conf.d
       containers:
       - name: mysql
-        image: mysql:5.7
+        image: mysql/mysql
         env:
         - name: MYSQL_ALLOW_EMPTY_PASSWORD
           value: "1"
