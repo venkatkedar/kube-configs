@@ -1,15 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-master
 spec:
   selector:
     matchLabels:
       app: mysql
-  serviceName: mysql
+  serviceName: mysql-svc
   replicas: 3
   template:
     metadata:
       labels:
         app: mysql
-    
+    spec:
+     containers:
+     - name: mysql
+       image: mysql/mysql-server
+       ports:
+       - containerPort: 3306
+       env:
+       - name: MYSQL_ROOT_PASSWORD
+         value: "test"
+       - name: MYSQL_REPLICATION_USER
+         value: 'demo'
+       - name: MYSQL_REPLICATION_PASSWORD
+         value: 'demo'
+       volumeMounts: 
+       - mountPath: /var/lib/mysql
+         subPath: mysql
+         name: data
+       - mountPath: /etc/mysql/conf.d
+         name: config-map
+     volumes:
+     - name: data
+       persistentVolumeClaim: 
+         claimName: mysql-pvc      
+      
