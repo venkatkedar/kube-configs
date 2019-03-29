@@ -17,6 +17,7 @@ spec:
        image: mysql/mysql-server
        ports:
        - containerPort: 3306
+       command: ["/bin/sh", "-c", "mkdir /mnt/data"]
        env:
        - name: MYSQL_ROOT_PASSWORD
          value: "test"
@@ -24,13 +25,17 @@ spec:
          value: 'demo'
        - name: MYSQL_REPLICATION_PASSWORD
          value: 'demo'
+
        volumeMounts: 
        - mountPath: /var/lib/mysql
          subPath: mysql
          name: data
        - mountPath: /etc/mysql/conf.d
-         name: config-map
+         name: configmap
      volumes:
      - name: data
        persistentVolumeClaim: 
-         claimName: mysql-pvc      
+         claimName: mysql-pvc   
+     - name: configmap
+       configMap:
+         name: mysql   
