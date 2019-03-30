@@ -23,7 +23,7 @@ spec:
            - name: config
              mountPath: /redis-config
            - name: data
-             mountpath: /redis-data
+             mountPath: /redis-data
         
         -  command: [sh, -c, source /redis-config/sentinel.sh ]
            image: redis:32.7-alpine
