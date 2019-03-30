@@ -23,7 +23,7 @@ data:
      sentinel down-after milliseconds redis 10000
      sentinel failover-timeout redis 20000
    
-   init.sh
+   init.sh:
      if [[ ${HOSTNAME} == "redis-0" ];
      then
         redis-server /redis-config/master.conf
@@ -31,5 +31,5 @@ data:
         redis-server /redis-config/slave.conf
      fi
 	
-   sentinel.sh	
+   sentinel.sh:	
      redis-server /redis-config/sentinel.conf
