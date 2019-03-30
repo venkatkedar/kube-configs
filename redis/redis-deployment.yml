@@ -36,7 +36,7 @@ spec:
         -  name: config
            configMap:
            -  defaultMode: 420
-           -  name: redis-config
+              name: redis-config
         
         -  name: data
            emptyDir:
