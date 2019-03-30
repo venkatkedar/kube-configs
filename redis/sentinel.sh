@@ -1,0 +1,1 @@
+redis-server /redis-config/sentinel.conf
