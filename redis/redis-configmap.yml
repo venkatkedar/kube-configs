@@ -6,16 +6,21 @@ metadata:
 data:
    master.conf: |
      bind 0.0.0.0
+     protected-mode yes
      port 6379
-     dir /redis-data
+     tcp-backlog 511
+     timeout 0
+     tcp-keepalive 300
+     daemonize no
+     supervised no
+     pidfile /var/run/redis_6379.pid
+     loglevel notice
+     logfile ""
  
    slave.conf: |
-     bind 0.0.0.0
-     port 6379
-     dir .
      slaveof redis-0.redis 6379
 
-   sentinel.conf:
+   sentinel.conf: |
      bind 0.0.0.0
      port 26379
      sentinel monitor redis redis-0.redis 6379 2
@@ -23,7 +28,7 @@ data:
      sentinel down-after milliseconds redis 10000
      sentinel failover-timeout redis 20000
    
-   init.sh:
+   init.sh: |
      if [[ ${HOSTNAME} == "redis-0" ];
      then
         redis-server /redis-config/master.conf
@@ -31,5 +36,5 @@ data:
         redis-server /redis-config/slave.conf
      fi
 	
-   sentinel.sh:	
+   sentinel.sh:	|
      redis-server /redis-config/sentinel.conf
