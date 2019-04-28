@@ -1,0 +1,6 @@
+kubectl get pods
+kubectl get services
+kubectl get sts
+kubectl get configmap
+kubectl logs <pod-name> -c <container-name>
+kubectl exec -it <pod-name> -c <container-name> -- <command>
