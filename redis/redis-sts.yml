@@ -12,25 +12,53 @@ spec:
           app: redis
    
       spec:
+        initContainers:
+        - name: init-redis
+          image: redis:3.2.7-alpine
+          command: 
+          - sh
+          - "-c"
+          - |
+            set -ex
+            #[[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+            ordinal=$(echo `hostname` | cut -d'-' -f2 )            
+            #ordinal=${BASH_REMATCH[1]}
+            if [[ $ordinal -eq 0 ]]; then
+              cp /mnt/config-map/master.conf /etc/redis.conf
+            else             
+              cp /mnt/config-map/slave.conf /etc/redis.conf
+            fi
+          volumeMounts:
+            - name: conf
+              mountPath: /etc/
+              subPath: redis.conf
+            - name: config
+              mountPath: /mnt/config-map
+
+        
         containers:
-        -  command: [sh, -c, source /redis-config/init.sh ]
-           image: redis:32.7-alpine
+                #-  command: [sh, -c, source /redis-config/init.sh ]
+         - image: redis:3.2.7-alpine
+           imagePullPolicy: Always
            name: redis
+           command: [ "redis-server" ]
+           args: 
+           - /etc/redis.conf 
            ports: 
            - containerPort: 6379
              name: redis
            volumeMounts:
-           - name: config
-             mountPath: /redis-config
+             - name: config
+               mountPath: /etc/redis
              
-           - name: data
-             mountPath: /redis-data
+             - name: conf
+               mountPath: /etc/
+               subPath: redis.conf
         
         volumes:
-        -  name: config
-           configMap:
-           -  defaultMode: 420
+        - name: config
+          configMap:
               name: redis-config
         
-        -  name: data
-           emptyDir:
+        - name: conf
+          emptyDir: {}
