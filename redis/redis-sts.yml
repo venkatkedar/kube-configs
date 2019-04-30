@@ -34,7 +34,8 @@ spec:
               subPath: redis.conf
             - name: config
               mountPath: /mnt/config-map
-
+            - name: redis-data
+              mountPath: /etc/data2
         
         containers:
                 #-  command: [sh, -c, source /redis-config/init.sh ]
@@ -54,7 +55,9 @@ spec:
              - name: conf
                mountPath: /etc/
                subPath: redis.conf
-        
+             - name: redis-data
+               mountPath: /etc/data2
+
         volumes:
         - name: config
           configMap:
@@ -62,3 +65,7 @@ spec:
         
         - name: conf
           emptyDir: {}
+
+        - name: redis-data
+          persistentVolumeClaim:
+             claimName: redis-pvc
