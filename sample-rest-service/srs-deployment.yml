@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: srs
-        image: venkatkedar/sample-rest-service:v1
+        image: venkatkedar/sample-rest-service:latest
         env:
         - name: CONFIG_URI
           value: "http://config-server"

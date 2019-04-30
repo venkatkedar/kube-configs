@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: config-server
-        image: venkatkedar/docker-repo:config-server2
+        image: venkatkedar/config-server:latest
         ports:
         -  containerPort: 9090
       imagePullSecrets:
